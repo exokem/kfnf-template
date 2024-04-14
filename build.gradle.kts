@@ -1,4 +1,3 @@
-import java.net.URI
 
 plugins {
     id("java-library")
@@ -15,6 +14,8 @@ object Versions
     const val minecraft = "1.20.4"
     const val neoforge = "20.4.231"
     const val kotlinforforge = "4.8.0"
+
+    const val jei = "17.3.0.49"
 
     const val minecraftRange = "[1.20.4,1.21)"
     const val neoforgeRange = "[20.4,)"
@@ -104,18 +105,21 @@ repositories {
     mavenLocal()
     mavenCentral()
 
-    maven {
-        name = "Kotlin for Forge"
-        url = URI.create("https://thedarkcolour.github.io/KotlinForForge/")
-        content {
-            includeGroup("thedarkcolour")
-        }
-    }
+    // Kotlin for Forge
+    maven(url = "https://thedarkcolour.github.io/KotlinForForge/")
+
+    // Jei
+    maven("https://maven.blamejared.com/")
+    maven("https://modmaven.dev/")
 }
 
 dependencies {
     implementation("net.neoforged:neoforge:${Versions.neoforge}")
     implementation("thedarkcolour:kotlinforforge-neoforge:${Versions.kotlinforforge}")
+
+    compileOnly("mezz.jei:jei-${Versions.minecraft}-common-api:${Versions.jei}")
+    compileOnly("mezz.jei:jei-${Versions.minecraft}-neoforge-api:${Versions.jei}")
+    runtimeOnly("mezz.jei:jei-${Versions.minecraft}-neoforge:${Versions.jei}")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
@@ -157,4 +161,3 @@ tasks {
 kotlin {
     jvmToolchain(17)
 }
-
