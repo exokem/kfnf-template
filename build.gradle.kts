@@ -35,6 +35,13 @@ object Mod
     const val description = "A mod."
 }
 
+object DevUser
+{
+    // The name and uuid must match the same user for skins to work.
+    const val name = "Israphel"
+    const val uuid = "7c8c12fd45194f159d7b0da76dca41f9"
+}
+
 java.toolchain.languageVersion = Versions.javaLang
 
 base.archivesName = Mod.id
@@ -60,6 +67,10 @@ runs {
 
     register("client") {
         systemProperty("forge.enabledGameTestNamespaces", Mod.id)
+        programArguments.addAll(
+            "--username", DevUser.name,
+            "--uuid", DevUser.uuid
+        )
     }
 
     register("server") {
